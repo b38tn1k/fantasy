@@ -2,6 +2,7 @@
 require "utils.load"
 --CLASSES
 require "classes.load"
+animator = require('classes.animationSequence')
 --VARS
 local lg = love.graphics
 game = {}
@@ -13,7 +14,7 @@ game.dims = {}
 function love.load()
   game.dims.x = lg.getWidth()
   game.dims.y = lg.getHeight()
-  princess = animator.create(assets.princessPixel, 0, 128, 64, 64, 7)
+  princess = animator.create(assets.princessPixel, 0, 64*19, 64, 64)
 end
 
 function love.update(dt)

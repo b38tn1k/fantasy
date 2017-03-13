@@ -1,23 +1,35 @@
 --animationSequence class handles a single animation sequence
+--frame quads are extracted horizontally until an empty frame is encountered
 local lg = love.graphics
 local animationSequence = {}
 animationSequence.__index = animationSequence
 
-function newQuadSequence(sheet, x, y, width, height, frameCount)
-  local frames = {}
-  for i in range(1, frameCount, 1) do
-    table.insert(frames, love.graphics.newQuad(x, y, width, height, sheet:getDimensions() ))
+function newQuadSequence(sheet, x, y, width, height)
+  local quads = {}
+  local a, _x
+  local _y = y + height / 2
+  local occupied = true
+  local frameCount = 0
+  local xDim, yDim = sheet:getDimensions()
+  while (occupied == true and x < xDim) do
+    _x = x + width / 2
+    _, _, _, a = sheet:getData():getPixel(_x, _y)
+    if (a ~= 0) then
+      table.insert(quads, love.graphics.newQuad(x, y, width, height, xDim, yDim ))
+      frameCount = frameCount + 1
+    else
+      occupied = false
+    end
     x = x + width
   end
-  return frames
+  return frameCount, quads
 end
 
-function animationSequence.create(sheet, x, y, width, height, frameCount)
+function animationSequence.create(sheet, x, y, width, height)
   local proto = {}
   setmetatable(proto, animationSequence)
   proto.sheet = sheet
-  proto.frameCount = frameCount
-  proto.quads = newQuadSequence(sheet, x, y, width, height, frameCount)
+  proto.frameCount, proto.quads = newQuadSequence(sheet, x, y, width, height)
   proto.frame = 1
   return proto
 end
