@@ -2,7 +2,8 @@
 utils = {
   "range",
   "colors",
-  "events"
+  "events",
+  "LPCSpriteValues"
 }
 
 for k,v in pairs(utils) do require("utils." .. v) end

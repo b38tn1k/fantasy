@@ -1,5 +1,7 @@
 --animationSequence class handles a single animation sequence
 --frame quads are extracted horizontally until an empty frame is encountered
+--individual settings for looping and one shotting are controled here
+--in addition to stepping through the sequence
 local lg = love.graphics
 local animationSequence = {}
 animationSequence.__index = animationSequence
@@ -11,10 +13,10 @@ function newQuadSequence(sheet, x, y, width, height)
   local occupied = true
   local frameCount = 0
   local xDim, yDim = sheet:getDimensions()
-  while (occupied == true and x < xDim) do
+  while occupied == true and x < xDim do
     _x = x + width / 2
     _, _, _, a = sheet:getData():getPixel(_x, _y)
-    if (a ~= 0) then
+    if a ~= 0 then
       table.insert(quads, love.graphics.newQuad(x, y, width, height, xDim, yDim ))
       frameCount = frameCount + 1
     else
@@ -31,15 +33,36 @@ function animationSequence.create(sheet, x, y, width, height)
   proto.sheet = sheet
   proto.frameCount, proto.quads = newQuadSequence(sheet, x, y, width, height)
   proto.frame = 1
+  proto.loop = true
   return proto
+end
+
+function animationSequence:setLoop()
+  self.loop = true
+end
+
+function animationSequence:setOneShot()
+  self.loop = false
+end
+
+function animationSequence:freakOut()
+  self.frame = math.random(1, self.frameCount)
 end
 
 function animationSequence:stepFrame(step)
   self.frame = self.frame + step
-  if self.frame > self.frameCount then
-    self.frame = 1
-  elseif self.frame < 1 then
-    self.frame = self.frameCount
+  if self.loop then
+    if self.frame > self.frameCount then
+      self.frame = 1
+    elseif self.frame < 1 then
+      self.frame = self.frameCount
+    end
+  else
+    if self.frame > self.frameCount then
+      self.frame = self.frameCount
+    elseif self.frame < 1 then
+      self.frame = 1
+    end
   end
 end
 
