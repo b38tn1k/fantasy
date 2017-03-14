@@ -14,14 +14,15 @@ game.dims = {}
 function love.load()
   game.dims.x = lg.getWidth()
   game.dims.y = lg.getHeight()
-  test1 = animator.create(assets.orc, 64, 64)
-  test1:setCurrentSequence(LPC.walk.front)
+  test1 = animator.create(assets.princess, 64, 64)
+  test1:setCurrentSequence(LPC.walk.right)
   test2 = animator.create(assets.princess, 64, 64)
+  test2.sequence[LPC.walk.right]:isRetrograde()
   test2:setCurrentSequence(LPC.walk.right)
-  test2:setAnimationStep(-1)
-  test3 = animator.create(assets.skeleton, 64, 64)
-  test3:setCurrentSequence(LPC.cast.front)
-  test3.currentSequence:setOneShot()
+  test3 = animator.create(assets.princess, 64, 64)
+  test3:setCurrentSequence(LPC.walk.right)
+  test3.currentSequence:isRetrograde()
+  test3.currentSequence.frameCount = test3.currentSequence.frameCount - 2
 end
 
 function love.update(dt)
@@ -37,8 +38,8 @@ function love.draw()
     lg.print(("DUR:\t %.1f"):format(game.time) .."s", 10, 20)
   end
   test1.currentSequence:drawFrame(200, 200)
-  test2.currentSequence:drawFrame(300, 200)
-  test3.currentSequence:drawFrame(400, 200)
+  test2.currentSequence:drawFrame(230, 200)
+  test3.currentSequence:drawFrame(260, 200)
 end
 
 

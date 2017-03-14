@@ -6,7 +6,7 @@ local lg = love.graphics
 local animationSequence = {}
 animationSequence.__index = animationSequence
 
-function newQuadSequence(sheet, x, y, width, height)
+local function newQuadSequence(sheet, x, y, width, height)
   local quads = {}
   local a, _x
   local _y = y + height / 2
@@ -47,6 +47,13 @@ end
 
 function animationSequence:freakOut()
   self.frame = math.random(1, self.frameCount)
+end
+
+function animationSequence:isRetrograde()
+  for j in range(1, self.frameCount-1, 1) do
+   self.quads[self.frameCount + j] = self.quads[self.frameCount - j]
+ end
+ self.frameCount = self.frameCount * 2 - 1
 end
 
 function animationSequence:stepFrame(step)
