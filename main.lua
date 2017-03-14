@@ -19,10 +19,14 @@ function love.load()
   test2 = animator.create(assets.princess, 64, 64)
   test2.sequence[LPC.walk.right]:isRetrograde()
   test2:setCurrentSequence(LPC.walk.right)
+  test2.currentSequence.frameCount = test2.currentSequence.frameCount - 1
   test3 = animator.create(assets.princess, 64, 64)
   test3:setCurrentSequence(LPC.walk.right)
-  test3.currentSequence:isRetrograde()
+ -- test3.currentSequence:isRetrograde()
   test3.currentSequence.frameCount = test3.currentSequence.frameCount - 2
+  test4 = animator.create(assets.spriteTest, 64, 64)
+  test4.currentSequence:isRetrograde()
+  test4.frameDuration = 1
 end
 
 function love.update(dt)
@@ -30,6 +34,7 @@ function love.update(dt)
   test1:update(game.time)
   test2:update(game.time)
   test3:update(game.time)
+  test4:update(game.time)
 end
 
 function love.draw()
@@ -40,6 +45,7 @@ function love.draw()
   test1.currentSequence:drawFrame(200, 200)
   test2.currentSequence:drawFrame(230, 200)
   test3.currentSequence:drawFrame(260, 200)
+  test4.currentSequence:drawFrame(400, 200)
 end
 
 

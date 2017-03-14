@@ -53,7 +53,7 @@ function animationSequence:isRetrograde()
   for j in range(1, self.frameCount-1, 1) do
    self.quads[self.frameCount + j] = self.quads[self.frameCount - j]
  end
- self.frameCount = self.frameCount * 2 - 1
+ self.frameCount = self.frameCount * 2 - 2
 end
 
 function animationSequence:stepFrame(step)
