@@ -20,13 +20,23 @@ end
 function animationGroup.create(sheet, tileWidth, tileHeight)
   local proto = {}
   setmetatable(proto, animationGroup)
-  proto.sequenceCount, proto.sequence = generateSequences(sheet, tileWidth, tileHeight)
   proto.updateTime = 0.0
   proto.updateFrame = false
   proto.frameDuration = 0.2
   proto.step = 1
+  proto.sequenceCount, proto.sequence = generateSequences(sheet, tileWidth, tileHeight)
   proto.currentSequence = proto.sequence[1]
   return proto
+end
+
+function animationGroup:configureSpriteSheet(config)
+  for i in range(1, self.sequenceCount, 1) do
+    if config[i] then 
+      if config[i]["ONESHOT"] == true then self.sequence[i]:setOneShot() else self.sequence[i]:setLoop() end
+      self.sequence[i]:removeFromTail(config[i]["REMOVE_FROM_TAIL"])
+      if config[i]["RETROGRADE"] == true then self.sequence[i]:isRetrograde() end
+    end
+  end
 end
 
 function animationGroup:setAnimationStep(step)

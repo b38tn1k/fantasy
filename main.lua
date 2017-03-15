@@ -24,9 +24,14 @@ function love.load()
   test3:setCurrentSequence(LPC.walk.right)
  -- test3.currentSequence:isRetrograde()
   test3.currentSequence.frameCount = test3.currentSequence.frameCount - 2
-  test4 = animator.create(assets.spriteTest, 64, 64)
-  test4.currentSequence:isRetrograde()
-  test4.frameDuration = 1
+  test4 = animator.create(assets.spriteTest2, 64, 64)
+  test4:setCurrentSequence(1)
+  config = {}
+  config["ONESHOT"] = false
+  config["RETROGRADE"] = true
+  config["REMOVE_FROM_TAIL"] = 3
+  test4:configureSpriteSheet({config})
+  test4.frameDuration = 0.25
 end
 
 function love.update(dt)
