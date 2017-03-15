@@ -13,6 +13,7 @@ local function generateSequences(sheet, tileWidth, tileHeight)
   for i in range(0, y-1, tileHeight) do
      table.insert(sequence, animator.create(sheet, 0, i, tileWidth, tileHeight))
      count = count + 1
+     print(count)
    end
    return count, sequence
 end
@@ -44,7 +45,7 @@ function animationGroup:setAnimationStep(step)
 end
 
 function animationGroup:setCurrentSequence(n)
-  self.currentSequence = self.sequence[n % self.sequenceCount]
+  self.currentSequence = self.sequence[n]
 end
 
 function animationGroup:update(gameTime)

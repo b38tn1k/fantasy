@@ -46,10 +46,7 @@ function animationSequence:setOneShot()
 end
 
 function animationSequence:removeFromTail(n)
-  print(n)
-  print (self.frameCount)
   self.frameCount = self.frameCount - n
-  print (self.frameCount)
 end
 
 function animationSequence:freakOut()
