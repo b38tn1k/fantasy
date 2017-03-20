@@ -32,9 +32,7 @@ end
 function animationGroup:configureSpriteSheet(config)
   for i in range(1, self.sequenceCount, 1) do
     if config[i] then 
-      if config[i]["ONESHOT"] == true then self.sequence[i]:setOneShot() else self.sequence[i]:setLoop() end
-      self.sequence[i]:removeFromTail(config[i]["REMOVE_FROM_TAIL"])
-      if config[i]["RETROGRADE"] == true then self.sequence[i]:isRetrograde() end
+      self.sequence[i]:configureSequence(config[i])
     end
   end
 end

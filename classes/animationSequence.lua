@@ -51,6 +51,12 @@ function animationSequence:removeFromTail(n)
   end
 end
 
+function animationSequence:configureSequence(config)
+  if config["ONESHOT"] == true then self:setOneShot() else self:setLoop() end
+  self:removeFromTail(config["REMOVE_FROM_TAIL"])
+  if config["RETROGRADE"] == true then self:isRetrograde() end
+end
+
 function animationSequence:freakOut()
   self.frame = math.random(1, self.frameCount)
 end
