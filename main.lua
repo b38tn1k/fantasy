@@ -16,30 +16,19 @@ function love.load()
   game.dims.y = lg.getHeight()
   test1 = animator.create(assets.princess, 64, 64)
   test1:setCurrentSequence(LPC.walk.right)
-  test2 = animator.create(assets.princess, 64, 64)
-  test2.sequence[LPC.walk.right]:isRetrograde()
-  test2:setCurrentSequence(LPC.walk.right)
-  test2.currentSequence.frameCount = test2.currentSequence.frameCount - 1
-  test3 = animator.create(assets.princess, 64, 64)
-  test3:setCurrentSequence(LPC.walk.right)
- -- test3.currentSequence:isRetrograde()
-  test3.currentSequence.frameCount = test3.currentSequence.frameCount - 2
-  test4 = animator.create(assets.spriteTest2, 64, 64)
-  test4:setCurrentSequence(1)
   config = {}
-  config["ONESHOT"] = false
-  config["RETROGRADE"] = true
-  config["REMOVE_FROM_TAIL"] = 3
-  test4:configureSpriteSheet({config})
-  test4.frameDuration = 0.25
+  config7 = {}
+  config7["ONESHOT"] = false
+  config7["RETROGRADE"] = false
+  config7["REMOVE_FROM_TAIL"] = 2
+  config[LPC.walk.right] = config7
+  test1:configureSpriteSheet(config)
+  test1:setFrameDuration(0.2)
 end
 
 function love.update(dt)
   game.time = game.time + dt
   test1:update(game.time)
-  test2:update(game.time)
-  test3:update(game.time)
-  test4:update(game.time)
 end
 
 function love.draw()
@@ -48,9 +37,6 @@ function love.draw()
     lg.print(("DUR:\t %.1f"):format(game.time) .."s", 10, 20)
   end
   test1.currentSequence:drawFrame(200, 200)
-  test2.currentSequence:drawFrame(230, 200)
-  test3.currentSequence:drawFrame(260, 200)
-  test4.currentSequence:drawFrame(400, 200)
 end
 
 
