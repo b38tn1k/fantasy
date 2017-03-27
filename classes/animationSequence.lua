@@ -17,7 +17,7 @@ local function newQuadSequence(sheet, x, y, width, height)
     _x = x + width / 2
     _, _, _, a = sheet:getData():getPixel(_x, _y)
     if a ~= 0 then
-      table.insert(quads, love.graphics.newQuad(x, y, width, height, xDim, yDim ))
+      table.insert(quads, lg.newQuad(x, y, width, height, xDim, yDim ))
       frameCount = frameCount + 1
     else
       occupied = false
@@ -46,7 +46,7 @@ function animationSequence:setOneShot()
 end
 
 function animationSequence:removeFromTail(n)
-  if n then 
+  if n then
     self.frameCount = self.frameCount - n
   end
 end
