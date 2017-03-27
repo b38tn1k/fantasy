@@ -76,6 +76,16 @@ function love.load()
   tile4 = tiler.create(assets.itemTextures.trunk, 96, 96)
   trunk = tile4:getCanvasFromBlockMap(1, 1, {1})
 
+  canvas = lg.newCanvas(500, 500)
+  lg.setCanvas(canvas)
+  lg.draw(dirtTest, 128, 128)
+  lg.draw(terrainTest, 128, 128)
+  lg.draw(topDirtTest, 128, 128)
+  lg.draw(topGrassTest, 128, 128)
+  lg.draw(trunk, 160, 160)
+  lg.draw(tree, 160, 96)
+  lg.setCanvas()
+
   test1 = animator.create(assets.spriteTextures.princess, 64, 64)
   test1:setCurrentSequence(LPC.walk.right)
   config = {}
@@ -104,17 +114,11 @@ function love.draw()
     lg.print("FPS:\t "..love.timer.getFPS(), 10, 10)
     lg.print(("DUR:\t %.1f"):format(game.time) .."s", 10, 20)
   end
-
-  lg.draw(dirtTest, 128, 128)
-  lg.draw(terrainTest, 128, 128)
-  lg.draw(topDirtTest, 128, 128)
-  lg.draw(topGrassTest, 128, 128)
+  lg.draw(canvas, 0, 0)
+  test1.currentSequence:drawFrame(250, 250)
+  test2.currentSequence:drawFrame(200 + 50*math.sin(game.time), 200+ 50*math.cos(game.time))
   lg.draw(trunk, 160, 160)
   lg.draw(tree, 160, 96)
-
-
-  test1.currentSequence:drawFrame(250, 250)
-  test2.currentSequence:drawFrame(150, 200)
 end
 
 
