@@ -1,10 +1,18 @@
-##New LÖVE
-My version of a new LÖVE project. Whenever I set up a [LÖVE](https://love2d.org) project I make something similar to this:
+I wanna refactor (already) and make it a bit more structured
 
-- [cargo](https://github.com/bjornbytes/cargo) provides easy asset management
-- bewClass script makes creating lua objects quicker
-- basic color table so I don't have to remember colors
-- exposed conf.lua file
-- [JSON.lua](http://regex.info/blog/lua/json) allows for serialization of simple tables for saving and loading game state
-
-LÖVE doesn't really force any design pattern on you like other game engines (which is one of the reasons it is so good!). This is what works for me. Enjoy!
+spriteTextureHandler holds:
+  - the sprite sheet texture
+  - quad sequences in the form of spriteQuadSequence
+  - a timer
+spriteTextureHandler can:
+  - draw to the screen
+  - be set to a spriteQuadSequence
+  - increment a spriteQuadSequence's current quad based on timer
+spriteQuadSequence holds:
+  - quads in an animation sequence
+  - number of quads
+  - loop/oneshot
+  - the current quad
+spriteQuadSequence can:
+  - increment the current quad
+  - config for reverse/loop/oneshot/remove from tail
