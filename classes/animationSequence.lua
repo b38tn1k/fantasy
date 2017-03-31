@@ -57,10 +57,6 @@ function animationSequence:configureSequence(config)
   if config["RETROGRADE"] == true then self:isRetrograde() end
 end
 
-function animationSequence:freakOut()
-  self.frame = math.random(1, self.frameCount)
-end
-
 function animationSequence:isRetrograde()
   for j in range(1, self.frameCount-1, 1) do
    self.quads[self.frameCount + j] = self.quads[self.frameCount - j]
