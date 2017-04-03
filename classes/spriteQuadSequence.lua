@@ -1,10 +1,10 @@
---animationSequence class handles a single animation sequence
+--spriteQuadSequence class handles a single animation sequence
 --frame quads are extracted horizontally until an empty frame is encountered
 --individual settings for looping and one shotting are controled here
 --in addition to stepping through the sequence
 local lg = love.graphics
-local animationSequence = {}
-animationSequence.__index = animationSequence
+local spriteQuadSequence = {}
+spriteQuadSequence.__index = spriteQuadSequence
 
 local function newQuadSequence(sheet, x, y, width, height)
   local quads = {}
@@ -27,9 +27,9 @@ local function newQuadSequence(sheet, x, y, width, height)
   return frameCount, quads
 end
 
-function animationSequence.create(sheet, x, y, width, height)
+function spriteQuadSequence.create(sheet, x, y, width, height)
   local proto = {}
-  setmetatable(proto, animationSequence)
+  setmetatable(proto, spriteQuadSequence)
   proto.sheet = sheet
   proto.frameCount, proto.quads = newQuadSequence(sheet, x, y, width, height)
   proto.frame = 1
@@ -37,34 +37,34 @@ function animationSequence.create(sheet, x, y, width, height)
   return proto
 end
 
-function animationSequence:setLoop()
+function spriteQuadSequence:setLoop()
   self.loop = true
 end
 
-function animationSequence:setOneShot()
+function spriteQuadSequence:setOneShot()
   self.loop = false
 end
 
-function animationSequence:removeFromTail(n)
+function spriteQuadSequence:removeFromTail(n)
   if n then
     self.frameCount = self.frameCount - n
   end
 end
 
-function animationSequence:configureSequence(config)
+function spriteQuadSequence:configureSequence(config)
   if config["ONESHOT"] == true then self:setOneShot() else self:setLoop() end
   self:removeFromTail(config["REMOVE_FROM_TAIL"])
   if config["RETROGRADE"] == true then self:isRetrograde() end
 end
 
-function animationSequence:isRetrograde()
+function spriteQuadSequence:isRetrograde()
   for j in range(1, self.frameCount-1, 1) do
    self.quads[self.frameCount + j] = self.quads[self.frameCount - j]
  end
  self.frameCount = self.frameCount * 2 - 2
 end
 
-function animationSequence:stepFrame(step)
+function spriteQuadSequence:stepFrame(step)
   self.frame = self.frame + step
   if self.loop then
     if self.frame > self.frameCount then
@@ -81,8 +81,8 @@ function animationSequence:stepFrame(step)
   end
 end
 
-function animationSequence:drawFrame(x, y)
+function spriteQuadSequence:drawFrame(x, y)
   lg.draw(self.sheet, self.quads[self.frame], x, y)
 end
 
-return animationSequence
+return spriteQuadSequence

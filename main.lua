@@ -2,7 +2,7 @@
 require "utils.load"
 --CLASSES
 require "classes.load"
-animator = require('classes.animationGroup')
+animator = require('classes.spriteTextureHandler')
 tiler = require('classes.squareTileGroup')
 --VARS
 local lg = love.graphics
