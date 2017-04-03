@@ -20,10 +20,11 @@ end
 function spriteTextureHandler.create(sheet, tileWidth, tileHeight)
   local proto = {}
   setmetatable(proto, spriteTextureHandler)
+  proto.sheet = sheet
   proto.updateTime = 0.0
   proto.updateFrame = false
   proto.frameDuration = 0.2
-  proto.step = 1
+  proto.frame = 1
   proto.sequenceCount, proto.sequence = generateSequences(sheet, tileWidth, tileHeight)
   proto.currentSequence = proto.sequence[1]
   return proto
@@ -37,12 +38,26 @@ function spriteTextureHandler:configureSpriteSheet(config)
   end
 end
 
-function spriteTextureHandler:setAnimationStep(step)
-  self.step = step
+function spriteTextureHandler:stepFrame()
+  self.frame = self.frame + 1
+  if self.currentSequence.loop then
+    if self.frame > self.currentSequence.frameCount then
+      self.frame = 1
+    elseif self.frame < 1 then
+      self.frame = self.currentSequence.frameCount
+    end
+  else
+    if self.frame > self.currentSequence.frameCount then
+      self.frame = self.currentSequence.frameCount
+    elseif self.frame < 1 then
+      self.frame = 1
+    end
+  end
 end
 
 function spriteTextureHandler:setCurrentSequence(n)
   self.currentSequence = self.sequence[n]
+  self.frame = 1
 end
 
 function spriteTextureHandler:setFrameDuration(n)
@@ -52,9 +67,12 @@ end
 function spriteTextureHandler:update(gameTime)
   if gameTime >= self.updateTime then
     self.updateTime = self.updateTime + self.frameDuration
-    self.currentSequence:stepFrame(self.step)
-    -- self.currentSequence:freakOut()
+    self:stepFrame()
   end
+end
+
+function spriteTextureHandler:drawFrame(x, y)
+  lg.draw(self.sheet, self.currentSequence.quads[self.frame], x, y)
 end
 
 return spriteTextureHandler

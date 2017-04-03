@@ -30,25 +30,10 @@ end
 function spriteQuadSequence.create(sheet, x, y, width, height)
   local proto = {}
   setmetatable(proto, spriteQuadSequence)
-  proto.sheet = sheet
   proto.frameCount, proto.quads = newQuadSequence(sheet, x, y, width, height)
   proto.frame = 1
   proto.loop = true
   return proto
-end
-
-function spriteQuadSequence:setLoop()
-  self.loop = true
-end
-
-function spriteQuadSequence:setOneShot()
-  self.loop = false
-end
-
-function spriteQuadSequence:removeFromTail(n)
-  if n then
-    self.frameCount = self.frameCount - n
-  end
 end
 
 function spriteQuadSequence:configureSequence(config)
@@ -64,25 +49,18 @@ function spriteQuadSequence:isRetrograde()
  self.frameCount = self.frameCount * 2 - 2
 end
 
-function spriteQuadSequence:stepFrame(step)
-  self.frame = self.frame + step
-  if self.loop then
-    if self.frame > self.frameCount then
-      self.frame = 1
-    elseif self.frame < 1 then
-      self.frame = self.frameCount
-    end
-  else
-    if self.frame > self.frameCount then
-      self.frame = self.frameCount
-    elseif self.frame < 1 then
-      self.frame = 1
-    end
+function spriteQuadSequence:removeFromTail(n)
+  if n then
+    self.frameCount = self.frameCount - n
   end
 end
 
-function spriteQuadSequence:drawFrame(x, y)
-  lg.draw(self.sheet, self.quads[self.frame], x, y)
+function spriteQuadSequence:setLoop()
+  self.loop = true
+end
+
+function spriteQuadSequence:setOneShot()
+  self.loop = false
 end
 
 return spriteQuadSequence

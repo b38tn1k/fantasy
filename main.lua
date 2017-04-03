@@ -115,8 +115,8 @@ function love.draw()
     lg.print(("DUR:\t %.1f"):format(game.time) .."s", 10, 20)
   end
   lg.draw(canvas, 0, 0)
-  test1.currentSequence:drawFrame(250, 250)
-  test2.currentSequence:drawFrame(200 + 50*math.sin(game.time), 200+ 50*math.cos(game.time))
+  test1:drawFrame(250, 250)
+  test2:drawFrame(200 + 50*math.sin(game.time), 200+ 50*math.cos(game.time))
   lg.draw(trunk, 160, 160)
   lg.draw(tree, 160, 96)
 end
