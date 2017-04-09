@@ -27,7 +27,7 @@ local function newQuadSequence(sheet, x, y, width, height)
   return frameCount, quads
 end
 
-function animationSequence.create(sheet, x, y, width, height)
+function animationSequence.create(sheet, x, y, width, height, timer)
   local proto = {}
   setmetatable(proto, animationSequence)
   proto.frameCount, proto.quads = newQuadSequence(sheet, x, y, width, height)

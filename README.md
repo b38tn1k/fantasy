@@ -21,8 +21,20 @@ animationSequence can:
   - config for reverse/loop/oneshot/remove from tail
 
 
+timer holds:
+  - a time interval
+  - a current time
+  - an update flag
+  - fire function
+
+timer can:
+  - set update flag to true based off time
+  - set update flag to false once read for the first time
+
 animationMotionHandler holds:
-  - sprites current position
+  - sprites current continuous position
   - update time
   - update interval
 
+animationMotionHandler can:
+  - update the sprites discrete (drawable) position

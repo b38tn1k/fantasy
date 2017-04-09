@@ -17,16 +17,14 @@ local function generateSequences(sheet, tileWidth, tileHeight)
    return count, sequence
 end
 
-function animationGroup.create(sheet, tileWidth, tileHeight)
+function animationGroup.create(sheet, tileWidth, tileHeight, timer)
   local proto = {}
   setmetatable(proto, animationGroup)
   proto.sheet = sheet
-  proto.updateTime = 0.0
-  proto.updateFrame = false
-  proto.frameDuration = 0.2
   proto.frame = 1
   proto.sequenceCount, proto.sequence = generateSequences(sheet, tileWidth, tileHeight)
   proto.currentSequence = proto.sequence[1]
+  proto.timer = timer
   return proto
 end
 
@@ -65,8 +63,7 @@ function animationGroup:setFrameDuration(n)
 end
 
 function animationGroup:update(gameTime)
-  if gameTime >= self.updateTime then
-    self.updateTime = self.updateTime + self.frameDuration
+  if self.timer:update(gameTime) == true then
     self:stepFrame()
   end
 end

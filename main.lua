@@ -4,6 +4,7 @@ require "utils.load"
 require "classes.load"
 animator = require('classes.animationGroup')
 tiler = require('classes.squareTileGroup')
+timer = require('classes.timer')
 --VARS
 local lg = love.graphics
 game = {}
@@ -86,7 +87,7 @@ function love.load()
   lg.draw(tree, 160, 96)
   lg.setCanvas()
 
-  test1 = animator.create(assets.spriteTextures.princess, 64, 64)
+  test1 = animator.create(assets.spriteTextures.princess, 64, 64, timer.create(0.2))
   test1:setCurrentSequence(LPC.walk.right)
   config = {}
   config7 = {}
@@ -97,7 +98,7 @@ function love.load()
   test1:configureSpriteSheet(config)
   test1:setFrameDuration(0.2)
 
-  test2 = animator.create(assets.spriteTextures.bat, 32, 32)
+  test2 = animator.create(assets.spriteTextures.bat, 32, 32, timer.create(0.2))
   test2:setCurrentSequence(1)
   test2:setFrameDuration(0.2)
 
