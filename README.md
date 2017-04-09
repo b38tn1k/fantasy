@@ -31,6 +31,7 @@ timer can:
   - set update flag to true based off time
   - set update flag to false once read for the first time
 
+
 animationMotionHandler holds:
   - sprites current continuous position
   - update time

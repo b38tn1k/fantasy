@@ -5,12 +5,16 @@ function animationMotionHandler.create(timer)
   local proto = {}
   setmetatable(proto, animationMotionHandler)
   proto.timer = timer
-  proto.x = 0
-  proto.y = 0
+  proto.x = nil
+  proto.y = nil
   --class variables here
   return proto
 end
---class functions here eg. animationMotionHandler:draw()
+
+function animationMotionHandler:init(x, y)
+  self.x = x
+  self.y = y
+end
 
 function animationMotionHandler:update(time, x, y)
   if self.timer:update(time) == true then

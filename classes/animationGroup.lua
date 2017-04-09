@@ -37,6 +37,7 @@ function animationGroup:configureSpriteSheet(config)
 end
 
 function animationGroup:stepFrame()
+  -- this could be done better but it works so... optimise later!
   self.frame = self.frame + 1
   if self.currentSequence.loop then
     if self.frame > self.currentSequence.frameCount then
