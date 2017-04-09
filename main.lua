@@ -5,6 +5,7 @@ require "classes.load"
 animator = require('classes.animationGroup')
 tiler = require('classes.squareTileGroup')
 timer = require('classes.timer')
+motion = require('classes.animationMotionHandler')
 --VARS
 local lg = love.graphics
 game = {}
@@ -102,12 +103,15 @@ function love.load()
   test2:setCurrentSequence(1)
   test2:setFrameDuration(0.2)
 
+  batMotion = motion.create(timer.create(0.2))
+
 end
 
 function love.update(dt)
   game.time = game.time + dt
   test1:update(game.time)
   test2:update(game.time)
+  batMotion:update(game.time, 300 + 50*math.sin(game.time), 200 + 50*math.cos(game.time))
 end
 
 function love.draw()
@@ -117,7 +121,7 @@ function love.draw()
   end
   lg.draw(canvas, 0, 0)
   test1:drawFrame(250, 250)
-  test2:drawFrame(200 + 50*math.sin(game.time), 200+ 50*math.cos(game.time))
+  test2:drawFrame(batMotion.x, batMotion.y)
   lg.draw(trunk, 160, 160)
   lg.draw(tree, 160, 96)
 end
