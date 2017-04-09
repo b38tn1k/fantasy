@@ -1,10 +1,10 @@
---spriteTextureHandler handles a group of related animation sequences
+--animationGroup handles a group of related animation sequences
 --for a sprite or tile. The Frame timing is handled here to allow
 --for normal looking sequence transisitions
-local animator = require("classes.spriteQuadSequence")
+local animator = require("classes.animationSequence")
 local lg = love.graphics
-local spriteTextureHandler = {}
-spriteTextureHandler.__index = spriteTextureHandler
+local animationGroup = {}
+animationGroup.__index = animationGroup
 
 local function generateSequences(sheet, tileWidth, tileHeight)
   local x, y = sheet:getDimensions()
@@ -17,9 +17,9 @@ local function generateSequences(sheet, tileWidth, tileHeight)
    return count, sequence
 end
 
-function spriteTextureHandler.create(sheet, tileWidth, tileHeight)
+function animationGroup.create(sheet, tileWidth, tileHeight)
   local proto = {}
-  setmetatable(proto, spriteTextureHandler)
+  setmetatable(proto, animationGroup)
   proto.sheet = sheet
   proto.updateTime = 0.0
   proto.updateFrame = false
@@ -30,7 +30,7 @@ function spriteTextureHandler.create(sheet, tileWidth, tileHeight)
   return proto
 end
 
-function spriteTextureHandler:configureSpriteSheet(config)
+function animationGroup:configureSpriteSheet(config)
   for i in range(1, self.sequenceCount, 1) do
     if config[i] then
       self.sequence[i]:configureSequence(config[i])
@@ -38,7 +38,7 @@ function spriteTextureHandler:configureSpriteSheet(config)
   end
 end
 
-function spriteTextureHandler:stepFrame()
+function animationGroup:stepFrame()
   self.frame = self.frame + 1
   if self.currentSequence.loop then
     if self.frame > self.currentSequence.frameCount then
@@ -55,24 +55,24 @@ function spriteTextureHandler:stepFrame()
   end
 end
 
-function spriteTextureHandler:setCurrentSequence(n)
+function animationGroup:setCurrentSequence(n)
   self.currentSequence = self.sequence[n]
   self.frame = 1
 end
 
-function spriteTextureHandler:setFrameDuration(n)
+function animationGroup:setFrameDuration(n)
   self.frameDuration = n
 end
 
-function spriteTextureHandler:update(gameTime)
+function animationGroup:update(gameTime)
   if gameTime >= self.updateTime then
     self.updateTime = self.updateTime + self.frameDuration
     self:stepFrame()
   end
 end
 
-function spriteTextureHandler:drawFrame(x, y)
+function animationGroup:drawFrame(x, y)
   lg.draw(self.sheet, self.currentSequence.quads[self.frame], x, y)
 end
 
-return spriteTextureHandler
+return animationGroup
