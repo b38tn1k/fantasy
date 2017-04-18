@@ -39,3 +39,14 @@ animationMotionHandler holds:
 
 animationMotionHandler can:
   - update the sprites discrete (drawable) position
+
+
+map holds:
+  - all the layers in a map
+  - collision map
+  - canvases of map
+
+map can:
+- create canvases from map layers
+- create a collision map from multiple layers
+- check for collisions

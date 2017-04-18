@@ -1,3 +1,5 @@
+--animationMotionHandlerconverts continuous movement
+--into pixel-y movement.
 local animationMotionHandler = {}
 animationMotionHandler.__index = animationMotionHandler
 

@@ -28,7 +28,7 @@ function squareTileGroup.create(sheet, xTileSize, yTileSize)
   return proto
 end
 
-function squareTileGroup:getCanvasFromBlockMap(x, y, map)
+function squareTileGroup:getCanvasFromBlockMap(map, x, y)
   xInPixels = x*self.xTileSize
   yInPixels = y*self.yTileSize
   local canvas = lg.newCanvas(xInPixels, yInPixels)

@@ -2,10 +2,6 @@
 require "utils.load"
 --CLASSES
 require "classes.load"
-animator = require('classes.animationGroup')
-tiler = require('classes.squareTileGroup')
-timer = require('classes.timer')
-motion = require('classes.animationMotionHandler')
 --VARS
 local lg = love.graphics
 local game = {}
@@ -19,6 +15,12 @@ function love.load()
   game.dims.y = lg.getHeight()
   -- Disorganised collection of shit here:
   require('testshit')
+  testMap = map.create(game.dims.x, game.dims.y)
+  testMap:addLayer(dirtmap, 1, false, assets.terrainTextures.dirt, 32, 32, 10, 10)
+  testMap:addLayer(grassmap, 1, false, assets.terrainTextures.grass, 32, 32, 10, 10)
+  testMap:addLayer(topdirtmap, 1, false, assets.terrainTextures.dirt, 32, 32, 10, 10)
+  testMap:addLayer(topgrassmap, 1, false, assets.terrainTextures.grass, 32, 32, 10, 10)
+  testMap:generate()
 end
 
 function love.update(dt)
@@ -35,11 +37,9 @@ function love.draw()
     lg.print(("DUR:\t %.1f"):format(game.time) .."s", 10, 20)
   end
   -- TEST
-  lg.draw(canvas, 0, 0)
+  lg.draw(testMap.canvas, 0, 0)
   test1:drawFrame(250, 250)
   test2:drawFrame(batMotion.x, batMotion.y)
-  lg.draw(trunk, 160, 160)
-  lg.draw(tree, 160, 96)
 end
 
 
