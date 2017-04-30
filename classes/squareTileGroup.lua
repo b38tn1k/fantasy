@@ -24,6 +24,8 @@ function squareTileGroup.create(sheet, xTileSize, yTileSize)
   proto.xTileSize = xTileSize
   proto.yTileSize = yTileSize
   proto.tileCount, proto.quads = newSquareTileGroup(sheet, xTileSize, yTileSize)
+  print("tiles")
+  print(proto.tileCount)
   --class variables here
   return proto
 end
@@ -39,7 +41,10 @@ function squareTileGroup:getCanvasFromBlockMap(map, x, y)
   for j in range(0, xInPixels - self.xTileSize, self.xTileSize) do
     for i in range(0, yInPixels  - self.yTileSize, self.yTileSize) do
       counter = counter + 1
-      lg.draw(self.sheet, self.quads[map[counter]], i, j)
+      if map[counter] > 0 then
+        print(map[counter])
+        lg.draw(self.sheet, self.quads[map[counter]], i, j)
+      end
     end
   end
   lg.setCanvas()
