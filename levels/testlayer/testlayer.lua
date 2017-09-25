@@ -1,3 +1,4 @@
+local lg = love.graphics
 testlayer = {}
 testlayer["WATER"] = {26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,
 26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,
@@ -59,15 +60,18 @@ testlayer["ROCKS"] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-
 -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
-watertiler = tiler.create(assets.terrainTextures.watergrass, 32, 32)
+-- watertiler = tiler.create(assets.terrainTextures.watergrass, 32, 32)
 grasstiler = tiler.create(assets.terrainTextures.grass, 32, 32)
 rocktiler = tiler.create(assets.terrainTextures.dirt, 32, 32)
-water = watertiler:getCanvasFromBlockMap(testlayer["WATER"], 25, 20)
+print('water')
+-- water = watertiler:getCanvasFromBlockMap(testlayer["WATER"], 25, 20)
+print('grass')
 grass = grasstiler:getCanvasFromBlockMap(testlayer["GRASS"], 25, 20)
+print('rock')
 rocks = rocktiler:getCanvasFromBlockMap(testlayer["ROCKS"], 25, 20)
 testcanvas = lg.newCanvas(800, 640)
 lg.setCanvas(testcanvas)
-lg.draw(water, 0, 0)
+-- lg.draw(water, 0, 0)
 lg.draw(grass, 0, 0)
 lg.draw(rocks, 0, 0)
 lg.setCanvas()

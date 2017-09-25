@@ -7,8 +7,8 @@ function newSquareTileGroup (sheet, xTileSize, yTileSize)
   local quads = {}
   local xDim, yDim = sheet:getDimensions()
   local tileCount = 0
-  for i in range(0, xDim - xTileSize, xTileSize) do
-    for j in range(0, yDim - yTileSize, yTileSize) do
+  for i in range(0, yDim - yTileSize, yTileSize) do
+    for j in range(0, xDim - xTileSize, xTileSize) do
       table.insert(quads, lg.newQuad(i, j, xTileSize, yTileSize, xDim, yDim))
       tileCount = tileCount + 1
     end
@@ -42,6 +42,7 @@ function squareTileGroup:getCanvasFromBlockMap(map, x, y)
     for i in range(0, yInPixels  - self.yTileSize, self.yTileSize) do
       counter = counter + 1
       if map[counter] > 0 then
+        print("map_counter:")
         print(map[counter])
         lg.draw(self.sheet, self.quads[map[counter]], i, j)
       end

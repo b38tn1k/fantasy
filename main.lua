@@ -9,7 +9,7 @@ game.pause = true
 game.debug = false
 game.time = 0.0
 game.dims = {}
-require('levels.testlayer.testlayer')
+dungeon = {}
 
 function love.load()
   game.dims.x = lg.getWidth()
@@ -18,6 +18,9 @@ function love.load()
   print(game.dims.y)
   -- Disorganised collection of shit here:
   require('testshit')
+  dungeon = Dungeon.create(game.dims.x, game.dims.y)
+  dungeon:generate()
+  dungeon:render()
 end
 
 function love.update(dt)
@@ -26,11 +29,12 @@ function love.update(dt)
   batMotion:update(game.time, 300 + 50*math.sin(game.time), 200 + 50*math.cos(game.time))
   test1:update(game.time)
   test2:update(game.time)
+
 end
 
 function love.draw()
   -- TEST
-  -- lg.draw(testcanvas, 0, 0)
+  lg.draw(dungeon.canvas, 1, 1)
   test1:drawFrame(250, 250)
   test2:drawFrame(batMotion.x, batMotion.y)
   if game.debug == true then

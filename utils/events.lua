@@ -6,6 +6,14 @@ function love.keyreleased(key)
   if key == 'tab' then
     game.debug = not game.debug
   end
+  if key == 'q' then
+    love.event.quit()
+  end
+  if key == 'r' then
+    dungeon = Dungeon.create(game.dims.x, game.dims.y)
+    dungeon:generate()
+    dungeon:render()
+  end
 end
 
 
