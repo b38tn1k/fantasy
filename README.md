@@ -2,4 +2,4 @@ Some sort of dungeon crawler using assets from [LPC](https://opengameart.org/con
 
 [Pics and progress here](https://goo.gl/photos/HhCV1R9P9C4usTf16)
 
-[!princess pixel](https://github.com/b38tn1k/fantasy/blob/master/assets/spriteTextures/princess.png)
+![princess pixel](https://github.com/b38tn1k/fantasy/blob/master/assets/spriteTextures/princess.png)
