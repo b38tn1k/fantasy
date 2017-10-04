@@ -20,7 +20,7 @@ function flipCoin()
   function Section.create(xMin, xMax, yMin, yMax, coin)
     local s = {}
     setmetatable(s, Section)
-    border = 20
+    border = 10
     s.xMin = xMin
     s.xMax = xMax
     s.yMin = yMin
@@ -36,6 +36,8 @@ function flipCoin()
     s.yRoom = yMin + border
     s.wRoom = s.width - (2 * border)
     s.hRoom = s.height - (2 * border)
+    s.xRoomMin = s.xRoom + s.wRoom
+    s.yRoomMin= s.yRoom + s.hRoom
     s.children = {}
     s.hasChildren = false
     if coin == nil then

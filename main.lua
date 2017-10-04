@@ -12,15 +12,28 @@ game.dims = {}
 dungeon = {}
 
 function love.load()
-  game.dims.x = lg.getWidth()
-  print(game.dims.x)
-  game.dims.y = lg.getHeight()
-  print(game.dims.y)
   -- Disorganised collection of shit here:
-  require('testshit')
-  dungeon = Dungeon.create(game.dims.x, game.dims.y)
+  test1 = Animator.create(Assets.spriteTextures.princess, 64, 64, Timer.create(0.2))
+  test1:setCurrentSequence(LPC.walk.right)
+  config = {}
+  config7 = {}
+  config7["ONESHOT"] = false
+  config7["RETROGRADE"] = false
+  config7["REMOVE_FROM_TAIL"] = 2
+  config[LPC.walk.right] = config7
+  test1:configureSpriteSheet(config)
+  test1:setFrameDuration(0.2)
+
+  test2 = Animator.create(Assets.spriteTextures.bat, 32, 32, Timer.create(0.2))
+  test2:setCurrentSequence(1)
+  test2:setFrameDuration(0.2)
+
+  batMotion = Motion.create(Timer.create(0.2))
+  batMotion:init(300 + 50*math.sin(0), 200 + 50*math.cos(0))
+
+  dungeon = Dungeon.create(lg.getWidth(), lg.getHeight(), 3)
   dungeon:generate()
-  dungeon:render()
+  dungeon:render(Assets.terrainTextures.dirt)
 end
 
 function love.update(dt)

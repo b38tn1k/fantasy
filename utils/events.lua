@@ -10,14 +10,12 @@ function love.keyreleased(key)
     love.event.quit()
   end
   if key == 'r' then
-    dungeon = Dungeon.create(game.dims.x, game.dims.y)
+    dungeon = Dungeon.create(lg.getWidth(), lg.getHeight(), 3)
     dungeon:generate()
-    dungeon:render()
+    dungeon:render(Assets.terrainTextures.dirt)
   end
 end
 
 
 function love.resize(w, h)
-  game.dims.x = w
-  game.dims.y = h
 end
